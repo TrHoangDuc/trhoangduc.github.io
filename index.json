@@ -1,0 +1,71 @@
+[
+{
+	"uri": "//localhost:1313/2-createec2instance/2.1-securitygroup/",
+	"title": "Create Security Groups",
+	"tags": [],
+	"description": "",
+	"content": "A security group controls the traffic that is allowed to reach and leave the resources that it is associated with. For example, after you associate a security group with an EC2 instance, it controls the inbound and outbound traffic for the instance. More detail\nSecurity group rule basics\nYou can specify allow rules, but not deny rules. When you first create a security group, it has no inbound rules. Therefore, no inbound traffic is allowed until you add inbound rules to the security group. When you first create a security group, it has an outbound rule that allows all outbound traffic from the resource. You can remove the rule and add outbound rules that allow specific outbound traffic only. If your security group has no outbound rules, no outbound traffic is allowed. When you associate multiple security groups with a resource, the rules from each security group are aggregated to form a single set of rules that are used to determine whether to allow access. When you add, update, or remove rules, your changes are automatically applied to all resources associated with the security group. The effect of some rule changes can depend on how the traffic is tracked. For more information, see Connection tracking in the Amazon EC2 User Guide for Linux Instances. When you create a security group rule, AWS assigns a unique ID to the rule. You can use the ID of a rule when you use the API or CLI to modify or delete the rule. Go to AWS Management Console Find EC2 Select EC2 In EC2 dashboard Find Security Groups Select Security Groups In Security Groups interface Click Create security group Fill out the boxes Choose any name you want for this Security Group Enter the description Choose the default VPC At Inbound rules First rule: Type: SSH, Source: My IP, Description: Allow SSH to server from my IP Second rule: Type: HTTP, Source: Anywhere-IPv4, Description: Allow Internet traffic (HTTP) to the server Click Create security group The Workshop Security group is created succesfully "
+},
+{
+	"uri": "//localhost:1313/",
+	"title": "EC2 Hands-on",
+	"tags": [],
+	"description": "",
+	"content": "DEPLOY A FUNNY STATIC WEBSITE USING EC2 Overview In this lab, you will explore the fundamentals of Amazon EC2, using it to deploy a static website built with HTML, CSS, Javascript. After this, you will gain an understanding of essential concepts and features within Amazon EC2, and practice creating a basic AWS Elastic Compute Cloud.\nContent Introduction Create EC2 Instances Connect to EC2 Instances Clean up resources "
+},
+{
+	"uri": "//localhost:1313/1-introduction/",
+	"title": "Introduction",
+	"tags": [],
+	"description": "",
+	"content": "Amazon Elastic Compute Cloud (Amazon EC2) provides on-demand, scalable computing capacity in the Amazon Web Services (AWS) Cloud. Using Amazon EC2 reduces hardware costs so you can develop and deploy applications faster. You can use Amazon EC2 to launch as many or as few virtual servers as you need, configure security and networking, and manage storage. You can add capacity (scale up) to handle compute-heavy tasks, such as monthly or yearly processes, or spikes in website traffic. When usage decreases, you can reduce capacity (scale down) again.\nRead more: Feature of Amazon EC2\nDrum kit application is a funny static website built with HTML, CSS and Javascript. The user can interact with application so that it could make different instrumental sounds via keyboard or mouse. "
+},
+{
+	"uri": "//localhost:1313/2-createec2instance/2.2-keypair/",
+	"title": "Create Key pair",
+	"tags": [],
+	"description": "",
+	"content": "A key pair consisting of a public key and a private key, is a set of security credentials that you use to prove your identity when connecting to an Amazon EC2 instance. Amazon EC2 stores the public key on your instance, and you store the private key. For Linux instances, the private key allows you to securely SSH into your instance. As an alternative to key pairs, you can use AWS Systems Manager Session Manager to connect to your instance with an interactive one-click browser-based shell or the AWS Command Line Interface (AWS CLI). More detail\nGo to AWS Management Console Find EC2 Select EC2 In EC2 dashboard Find Key Pairs Select Key Pairs Click Create key pair In the Create key pair interface Enter Workshop_privatekey for Name Key pair type, select RSA Private key file format, select .pem Select Create key pair Your key pair is create succesfully Go to your Downloads folder and relocate the Workshop_privatekey to a specific folder. For example, I store the private key in E:\\Code\\AWS\\FCJ\\Workshop\\Test, this step is very important and we will need it later. "
+},
+{
+	"uri": "//localhost:1313/2-createec2instance/",
+	"title": "EC2 Instance",
+	"tags": [],
+	"description": "",
+	"content": "Amazon Elastic Compute Cloud (Amazon EC2) provides on-demand, scalable computing capacity in the Amazon Web Services (AWS) Cloud. Using Amazon EC2 reduces hardware costs so you can develop and deploy applications faster. You can use Amazon EC2 to launch as many or as few virtual servers as you need, configure security and networking, and manage storage. You can add capacity (scale up) to handle compute-heavy tasks, such as monthly or yearly processes, or spikes in website traffic. When usage decreases, you can reduce capacity (scale down) again.\nRead more: Feature of Amazon EC2\nDrum kit application is a funny static website built with HTML, CSS and Javascript. The user can interact with application so that it could make different instrumental sounds via keyboard or mouse. "
+},
+{
+	"uri": "//localhost:1313/3-connectec2instance/",
+	"title": "Connect to EC2 Instance",
+	"tags": [],
+	"description": "",
+	"content": " Download Git Access the EC2 Dashboard Select Instances Choose the Workshop instance Select Details Locate the Public IPv4 address Go to the folder you stored your private key (step 6 of Section 2.2.1), left-click on the folder and select Git Bash Here Use Git Bash to connect to EC2 Instance ssh -i Workshop_privatekey.pem ubuntu@\u0026lt;Your EC2 public IP\u0026gt; When the question pops up, enter yes Then you will connect to Instance successfully Check Apache2 status by command sudo systemctl status apache2. If the status is Active (Running), you have deploy the application successfully. Go to any browser and paste your EC2 public IP into the address bar, hola! Enjoy your fun. "
+},
+{
+	"uri": "//localhost:1313/2-createec2instance/2.3-ec2instance/",
+	"title": "Create EC2 Instance",
+	"tags": [],
+	"description": "",
+	"content": " Go to AWS Management Console Find EC2 Select EC2 Select Launch Instances Configurate the instance as your need Provide a Name and tags for the instance Choose the Ubuntu for the AMI Select the Ubuntu Server 20.04 LTS At Instance type, choose t2.micro if you have Free tier in order to save the cost Click drop down menu at Key pair name and select Workshop_privatekey that we just created At Network settings, choose Select existing security group, click the drop down menu and choose Workshop_SG Then expand the Advanced details section Scroll down to the bottom and paste this to the User data #!/bin/bash sudo apt update\rsudo apt install apache2 -y\rsudo systemctl enable apache2\rgit clone https://github.com/TrHoangDuc/drum_kit.git\rsudo cp -r drum_kit/* /var/www/html/\rsudo systemctl restart apache2 Click Launch instance Wait about 5 minutes and check whether your instance is ready to the next step. "
+},
+{
+	"uri": "//localhost:1313/4-cleanup/",
+	"title": "Clean up resources",
+	"tags": [],
+	"description": "",
+	"content": "Delete the resources by this order:\nDelete the Instance Delete the Key pair Delete the Security group "
+},
+{
+	"uri": "//localhost:1313/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "//localhost:1313/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]
